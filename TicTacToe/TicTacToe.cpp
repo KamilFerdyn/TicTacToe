@@ -49,7 +49,6 @@ bool isBoardFull(char board[3][3]) {
 }
 
 std::pair<int, int> findBestMove(char board[3][3], char aiPlayer, char humanPlayer) {
-    // Sprawdzenie, czy AI może wygrać w następnym ruchu
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             if (board[i][j] == ' ') {
@@ -63,13 +62,12 @@ std::pair<int, int> findBestMove(char board[3][3], char aiPlayer, char humanPlay
         }
     }
 
-    // Sprawdzenie, czy gracz może wygrać w następnym ruchu i zablokowanie go
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             if (board[i][j] == ' ') {
                 board[i][j] = humanPlayer;
                 if (checkWinner(board) == humanPlayer) {
-                    board[i][j] = ' '; // Cofnięcie ruchu
+                    board[i][j] = ' '; 
                     return std::make_pair(i, j);
                 }
                 board[i][j] = ' ';
@@ -77,18 +75,15 @@ std::pair<int, int> findBestMove(char board[3][3], char aiPlayer, char humanPlay
         }
     }
 
-    // Zajęcie środka planszy
     if (board[1][1] == ' ') {
         return std::make_pair(1, 1);
     }
 
-    // Zajęcie rogu, jeśli jest wolny
     if (board[0][0] == ' ') return std::make_pair(0, 0);
     if (board[0][2] == ' ') return std::make_pair(0, 2);
     if (board[2][0] == ' ') return std::make_pair(2, 0);
     if (board[2][2] == ' ') return std::make_pair(2, 2);
 
-    // Zajęcie dowolnego wolnego pola
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             if (board[i][j] == ' ') {
